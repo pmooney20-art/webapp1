@@ -30,7 +30,6 @@ async function init() {
 
   server.route(webRoutes);
 
-
   await server.start();
 
   console.log("Server running at %s", server.info.uri);

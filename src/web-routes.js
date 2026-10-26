@@ -17,8 +17,8 @@ export const webRoutes = [
     config: placesController.list,
   },
   {
-  method: "POST",
-  path: "/places/add",
-  config: placesController.addPlace,
-},
+    method: "POST",
+    path: "/places/add",
+    config: placesController.addPlace,
+  },
 ];

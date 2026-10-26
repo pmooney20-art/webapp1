@@ -16,7 +16,19 @@
   <div class="column">
     <h2 class="subtitle">Add a New Place</h2>
 
-    <form action="/places/add" method="POST">
+    {{#if errors}}
+      <div class="notification is-danger">
+        <p>Please correct the following errors:</p>
+
+        <ul>
+          {{#each errors}}
+            <li>{{message}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    {{/if}}
+
+    <form action="/places/add" method="POST" novalidate>
       <div class="field">
         <label class="label" for="name">Name</label>
         <div class="control">
@@ -25,7 +37,7 @@
             type="text"
             id="name"
             name="name"
-            required
+            value="{{values.name}}"
           />
         </div>
       </div>
@@ -38,7 +50,7 @@
             type="text"
             id="category"
             name="category"
-            required
+            value="{{values.category}}"
           />
         </div>
       </div>
@@ -51,7 +63,7 @@
             type="text"
             id="location"
             name="location"
-            required
+            value="{{values.location}}"
           />
         </div>
       </div>

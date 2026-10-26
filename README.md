@@ -54,5 +54,6 @@ This project is being developed as part of the Web Application Development modul
 - ESLint and Prettier configuration
 - Add new places through HTML form
 - In-memory place storage
-
+- Joi validation for submitted places
+- Validation error messages displayed in the form
 
