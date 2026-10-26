@@ -1,0 +1,14 @@
+<h1 class="title">Explore Places</h1>
+
+<div class="columns is-multiline">
+  {{#each places}}
+    <div class="column is-one-third">
+      <div class="box place-card">
+        <h2 class="title is-4">{{name}}</h2>
+
+        <p><strong>Category:</strong> {{category}}</p>
+        <p><strong>Location:</strong> {{location}}</p>
+      </div>
+    </div>
+  {{/each}}
+</div>
