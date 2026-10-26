@@ -21,4 +21,19 @@ export const webRoutes = [
     path: "/places/add",
     config: placesController.addPlace,
   },
+  {
+    method: "GET",
+    path: "/places/{id}/edit",
+    options: placesController.editPlace,
+  },
+  {
+    method: "POST",
+    path: "/places/{id}/edit",
+    options: placesController.updatePlace,
+  },
+  {
+    method: "POST",
+    path: "/places/{id}/delete",
+    options: placesController.deletePlace,
+  },
 ];
