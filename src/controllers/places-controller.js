@@ -1,3 +1,5 @@
+import { placeStore } from "../models/place-store.js";
+
 export const placesController = {
   index: {
     handler(request, h) {
@@ -17,28 +19,26 @@ export const placesController = {
 
   list: {
     handler(request, h) {
-      const places = [
-        {
-          name: "Croagh Patrick",
-          category: "Mountain",
-          location: "County Mayo",
-        },
-        {
-          name: "Kylemore Abbey",
-          category: "Historic Site",
-          location: "County Galway",
-        },
-        {
-          name: "Cliffs of Moher",
-          category: "Scenic View",
-          location: "County Clare",
-        },
-      ];
+      const places = placeStore.getAllPlaces();
 
       return h.view("places", {
         title: "Explore Places",
         places,
       });
+    },
+  },
+
+  addPlace: {
+    handler(request, h) {
+      const newPlace = {
+        name: request.payload.name,
+        category: request.payload.category,
+        location: request.payload.location,
+      };
+
+      placeStore.addPlace(newPlace);
+
+      return h.redirect("/places");
     },
   },
 };
