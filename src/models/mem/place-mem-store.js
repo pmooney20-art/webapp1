@@ -21,27 +21,28 @@ const places = [
   },
 ];
 
-export const placeStore = {
-  getAllPlaces() {
+export const placeMemStore = {
+  async getAllPlaces() {
     return places;
   },
 
-  getPlaceById(id) {
+  async getPlaceById(id) {
     return places.find((place) => place.id === id);
   },
 
-  addPlace(place) {
+  async addPlace(place) {
     const newPlace = {
       id: uuid(),
       ...place,
     };
 
     places.push(newPlace);
+
     return newPlace;
   },
 
-  updatePlace(id, updatedDetails) {
-    const place = this.getPlaceById(id);
+  async updatePlace(id, updatedDetails) {
+    const place = places.find((item) => item.id === id);
 
     if (place) {
       place.name = updatedDetails.name;
@@ -52,7 +53,7 @@ export const placeStore = {
     return place;
   },
 
-  deletePlace(id) {
+  async deletePlace(id) {
     const index = places.findIndex((place) => place.id === id);
 
     if (index !== -1) {

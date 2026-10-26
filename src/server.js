@@ -4,7 +4,7 @@ import Inert from "@hapi/inert";
 import Handlebars from "handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
-
+import { db } from "./models/db.js";
 import { webRoutes } from "./web-routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -29,7 +29,7 @@ async function init() {
   });
 
   server.route(webRoutes);
-
+  db.init("json");
   await server.start();
 
   console.log("Server running at %s", server.info.uri);

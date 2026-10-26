@@ -1,4 +1,4 @@
-import { placeStore } from "../models/place-store.js";
+import { db } from "../models/db.js";
 import { PlaceSpec } from "../models/joi-schemas.js";
 
 export const placesController = {
@@ -19,8 +19,8 @@ export const placesController = {
   },
 
   list: {
-    handler(request, h) {
-      const places = placeStore.getAllPlaces();
+    async handler(request, h) {
+      const places = await db.placeStore.getAllPlaces();
 
       return h.view("places", {
         title: "Explore Places",
@@ -30,31 +30,33 @@ export const placesController = {
   },
 
   addPlace: {
-    handler(request, h) {
+    async handler(request, h) {
       const validation = PlaceSpec.validate(request.payload, {
         abortEarly: false,
       });
 
       if (validation.error) {
+        const places = await db.placeStore.getAllPlaces();
+
         return h
           .view("places", {
             title: "Explore Places",
-            places: placeStore.getAllPlaces(),
+            places,
             errors: validation.error.details,
             values: request.payload,
           })
           .code(400);
       }
 
-      placeStore.addPlace(validation.value);
+      await db.placeStore.addPlace(validation.value);
 
       return h.redirect("/places");
     },
   },
 
   editPlace: {
-    handler(request, h) {
-      const place = placeStore.getPlaceById(request.params.id);
+    async handler(request, h) {
+      const place = await db.placeStore.getPlaceById(request.params.id);
 
       if (!place) {
         return h.response("Place not found").code(404);
@@ -68,39 +70,39 @@ export const placesController = {
   },
 
   updatePlace: {
-  handler(request, h) {
-    const place = placeStore.getPlaceById(request.params.id);
+    async handler(request, h) {
+      const place = await db.placeStore.getPlaceById(request.params.id);
 
-    if (!place) {
-      return h.response("Place not found").code(404);
-    }
+      if (!place) {
+        return h.response("Place not found").code(404);
+      }
 
-    const validation = PlaceSpec.validate(request.payload, {
-      abortEarly: false,
-    });
+      const validation = PlaceSpec.validate(request.payload, {
+        abortEarly: false,
+      });
 
-    if (validation.error) {
-      return h
-        .view("edit-place", {
-          title: "Edit Place",
-          place: {
-            id: place.id,
-            ...request.payload,
-          },
-          errors: validation.error.details,
-        })
-        .code(400);
-    }
+      if (validation.error) {
+        return h
+          .view("edit-place", {
+            title: "Edit Place",
+            place: {
+              id: place.id,
+              ...request.payload,
+            },
+            errors: validation.error.details,
+          })
+          .code(400);
+      }
 
-    placeStore.updatePlace(place.id, validation.value);
+      await db.placeStore.updatePlace(place.id, validation.value);
 
-    return h.redirect("/places");
+      return h.redirect("/places");
+    },
   },
-},
 
   deletePlace: {
-    handler(request, h) {
-      const deleted = placeStore.deletePlace(request.params.id);
+    async handler(request, h) {
+      const deleted = await db.placeStore.deletePlace(request.params.id);
 
       if (!deleted) {
         return h.response("Place not found").code(404);
