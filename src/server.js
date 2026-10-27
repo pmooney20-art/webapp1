@@ -3,9 +3,11 @@ import Vision from "@hapi/vision";
 import Inert from "@hapi/inert";
 import Handlebars from "handlebars";
 import path from "path";
+import Joi from "joi";
 import { fileURLToPath } from "url";
 import { db } from "./models/db.js";
 import { webRoutes } from "./web-routes.js";
+import { accountsController } from "./controllers/accounts-controller.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,9 +27,10 @@ async function init() {
     relativeTo: __dirname,
     path: "./views",
     layoutPath: "./views/layouts",
+    partialsPath: "./views/partials",
     layout: true,
   });
-
+  server.validator(Joi);
   server.route(webRoutes);
   db.init("json");
   await server.start();

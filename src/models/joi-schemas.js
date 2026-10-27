@@ -7,3 +7,14 @@ export const PlaceSpec = Joi.object({
 
   location: Joi.string().trim().min(3).max(100).required(),
 });
+export const UserCredentialsSpec = Joi.object()
+  .keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  })
+  .label("UserCredentials");
+
+export const UserSpec = UserCredentialsSpec.keys({
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+}).label("UserDetails");

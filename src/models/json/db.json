@@ -1,16 +1,12 @@
 {
-  "places": [
+  "places": [],
+  "users": [
     {
-      "id": "b385e18f-094a-4e5d-9b39-f87dcc7676e5",
-      "name": "achill island",
-      "category": "island",
-      "location": "mayo"
-    },
-    {
-      "id": "81408f67-7f56-416b-be31-c4e340ec8981",
-      "name": "Croagh Patrick",
-      "category": "Mountain",
-      "location": "mayo"
+      "firstName": "paul",
+      "lastName": "mooney",
+      "email": "realemail@email.com",
+      "password": "secret",
+      "_id": "7e367674-3f8f-4b3c-b0ea-edf3e2b438ef"
     }
   ]
 }

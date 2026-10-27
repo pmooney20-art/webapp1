@@ -1,4 +1,5 @@
 import { placesController } from "./controllers/places-controller.js";
+import { accountsController } from "./controllers/accounts-controller.js";
 
 export const webRoutes = [
   {
@@ -35,5 +36,15 @@ export const webRoutes = [
     method: "POST",
     path: "/places/{id}/delete",
     options: placesController.deletePlace,
+  },
+  {
+    method: "GET",
+    path: "/signup",
+    config: accountsController.showSignup,
+  },
+  {
+    method: "POST",
+    path: "/register",
+    config: accountsController.signup,
   },
 ];
