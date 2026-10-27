@@ -1,5 +1,18 @@
 {
-  "places": [],
+  "places": [
+    {
+      "id": "440aa881-f8b0-4285-add6-54e176014a90",
+      "name": "Croagh Patrick",
+      "category": "Mountain",
+      "location": "mayo"
+    },
+    {
+      "id": "91ae5d3e-769d-4e40-a71a-4beba06abe8f",
+      "name": "achill island",
+      "category": "island",
+      "location": "mayo"
+    }
+  ],
   "users": [
     {
       "firstName": "paul",
@@ -7,6 +20,27 @@
       "email": "realemail@email.com",
       "password": "secret",
       "_id": "7e367674-3f8f-4b3c-b0ea-edf3e2b438ef"
+    },
+    {
+      "firstName": "Paul",
+      "lastName": "Mooney",
+      "email": "email@realemail.com",
+      "password": "secretpassword",
+      "_id": "8bd4894a-bfd5-4880-8ea1-9641d2086b24"
+    },
+    {
+      "firstName": "Briant",
+      "lastName": "test",
+      "email": "email@realemail.com",
+      "password": "secret",
+      "_id": "165cd464-4b26-4ab4-a6ce-cfd772685b18"
+    },
+    {
+      "firstName": "brian",
+      "lastName": "Test",
+      "email": "anotheremail@realemail.com",
+      "password": "secret",
+      "_id": "1f89d935-ae08-43fb-aad7-bedfc77e9f21"
     }
   ]
 }

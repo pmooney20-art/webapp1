@@ -25,17 +25,17 @@ export const webRoutes = [
   {
     method: "GET",
     path: "/places/{id}/edit",
-    options: placesController.editPlace,
+    config: placesController.editPlace,
   },
   {
     method: "POST",
     path: "/places/{id}/edit",
-    options: placesController.updatePlace,
+    config: placesController.updatePlace,
   },
   {
     method: "POST",
     path: "/places/{id}/delete",
-    options: placesController.deletePlace,
+    config: placesController.deletePlace,
   },
   {
     method: "GET",
@@ -47,4 +47,7 @@ export const webRoutes = [
     path: "/register",
     config: accountsController.signup,
   },
+  { method: "GET", path: "/login", config: accountsController.showLogin },
+  { method: "POST", path: "/authenticate", config: accountsController.login },
+  { method: "GET", path: "/logout", config: accountsController.logout },
 ];

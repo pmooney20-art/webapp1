@@ -1,5 +1,7 @@
 import Hapi from "@hapi/hapi";
 import Vision from "@hapi/vision";
+import Cookie from "@hapi/cookie";
+import dotenv from "dotenv";
 import Inert from "@hapi/inert";
 import Handlebars from "handlebars";
 import path from "path";
@@ -11,6 +13,7 @@ import { accountsController } from "./controllers/accounts-controller.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+dotenv.config();
 
 async function init() {
   const server = Hapi.server({
@@ -19,6 +22,19 @@ async function init() {
   });
 
   await server.register([Vision, Inert]);
+
+  await server.register(Cookie);
+  server.auth.strategy("session", "cookie", {
+    cookie: {
+      name: process.env.cookie_name,
+      password: process.env.cookie_password,
+      isSecure: false,
+    },
+    redirectTo: "/",
+    validate: accountsController.validate,
+  });
+
+  server.auth.default("session");
 
   server.views({
     engines: {

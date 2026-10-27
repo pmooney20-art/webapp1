@@ -3,6 +3,7 @@ import { PlaceSpec } from "../models/joi-schemas.js";
 
 export const placesController = {
   index: {
+    auth: false,
     handler(request, h) {
       return h.view("home", {
         title: "Places of Interest",
