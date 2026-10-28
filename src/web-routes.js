@@ -1,5 +1,6 @@
 import { placesController } from "./controllers/places-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
+import { mapController } from "./controllers/map-controller.js";
 
 export const webRoutes = [
   {
@@ -50,4 +51,14 @@ export const webRoutes = [
   { method: "GET", path: "/login", config: accountsController.showLogin },
   { method: "POST", path: "/authenticate", config: accountsController.login },
   { method: "GET", path: "/logout", config: accountsController.logout },
+  {
+    method: "GET",
+    path: "/places/{id}",
+    config: placesController.showPlace,
+  },
+  {
+  method: "GET",
+  path: "/map",
+  config: mapController.index,
+},
 ];

@@ -1,0 +1,48 @@
+{{> welcome-menu active="map"}}
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Explore Places of Interest</h1>
+    <p class="subtitle">
+      Discover interesting places around Ireland.
+    </p>
+
+    <div id="map" style="height: 500px;"></div>
+  </div>
+</section>
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  const map = L.map("map").setView([53.5, -8.0], 7);
+
+  L.tileLayer(
+    "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      attribution: '&copy; OpenStreetMap contributors',
+      maxZoom: 19,
+    }
+  ).addTo(map);
+
+  const places = {{{placesJson}}};
+
+  places.forEach((place) => {
+    const marker = L.marker([
+      place.latitude,
+      place.longitude,
+    ]).addTo(map);
+
+    const link = document.createElement("a");
+    link.href = `/places/${encodeURIComponent(place.id)}`;
+    link.textContent = place.name;
+    link.className = "has-text-weight-bold";
+
+    marker.bindPopup(link);
+  });
+</script>
+#'https://leafletjs.com/examples/quick-start/'

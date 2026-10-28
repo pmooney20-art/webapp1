@@ -11,6 +11,15 @@
       "name": "achill island",
       "category": "island",
       "location": "mayo"
+    },
+    {
+      "id": "0aae65a4-f79f-4b7b-911a-cba338087c4d",
+      "name": "Croagh Patrick",
+      "category": "Mountain",
+      "location": "Mayo",
+      "description": "A picturesque mountain in the County of Mayo, where Saint Patrick made his pilgramage.",
+      "latitude": -50,
+      "longitude": 60
     }
   ],
   "users": [

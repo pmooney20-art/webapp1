@@ -30,6 +30,9 @@ export const placeJsonStore = {
       place.name = updatedDetails.name;
       place.category = updatedDetails.category;
       place.location = updatedDetails.location;
+      place.description = updatedDetails.description;
+      place.latitude = updatedDetails.latitude;
+      place.longitude = updatedDetails.longitude;
 
       await db.write();
     }

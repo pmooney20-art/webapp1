@@ -1,0 +1,25 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">{{place.name}}</h1>
+
+    <div class="box">
+      <p><strong>Category:</strong> {{place.category}}</p>
+      <p><strong>Location:</strong> {{place.location}}</p>
+
+      <hr />
+
+      <h2 class="subtitle">Description</h2>
+      <p>{{place.description}}</p>
+
+      <hr />
+
+      <h2 class="subtitle">Coordinates</h2>
+      <p>Latitude: {{place.latitude}}</p>
+      <p>Longitude: {{place.longitude}}</p>
+    </div>
+
+    <a class="button is-link is-light" href="/places">
+      Back to Places
+    </a>
+  </div>
+</section>
