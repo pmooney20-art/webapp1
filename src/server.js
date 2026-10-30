@@ -6,6 +6,7 @@ import Inert from "@hapi/inert";
 import Handlebars from "handlebars";
 import path from "path";
 import Joi from "joi";
+import { apiRoutes } from "./api-routes.js";
 import { fileURLToPath } from "url";
 import { db } from "./models/db.js";
 import { webRoutes } from "./web-routes.js";
@@ -48,6 +49,7 @@ async function init() {
   });
   server.validator(Joi);
   server.route(webRoutes);
+  server.route(apiRoutes);
   db.init("mongo");
   await server.start();
 
