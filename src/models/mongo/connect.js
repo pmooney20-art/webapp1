@@ -3,8 +3,8 @@ import Mongoose from "mongoose";
 
 export async function connectMongo() {
   dotenv.config({
-  path: process.env.NODE_ENV === "test" ? ".env.test" : ".env",
-});
+    path: process.env.NODE_ENV === "test" ? ".env.test" : ".env",
+  });
 
   Mongoose.set("strictQuery", true);
 
@@ -20,7 +20,5 @@ export async function connectMongo() {
 
   await Mongoose.connect(process.env.db);
 
-  console.log(
-    `Database connected to ${db.name} on ${db.host}`
-  );
+  console.log(`Database connected to ${db.name} on ${db.host}`);
 }

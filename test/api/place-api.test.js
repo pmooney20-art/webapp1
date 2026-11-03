@@ -1,4 +1,5 @@
 import { assert } from "chai";
+import axios from "axios";
 import { placesService } from "./places-service.js";
 import { croaghPatrick } from "../fixtures.js";
 
@@ -36,4 +37,33 @@ suite("Place API Tests", () => {
 
     assert.equal(response.status, 204);
   });
+
+  test("get a place that does not exist", async () => {
+  try {
+    await placesService.getPlace("507f1f77bcf86cd799439011");
+    assert.fail("Request should have failed");
+  } catch (err) {
+    assert.equal(err.response.status, 404);
+  }
+});
+
+test("create a place with invalid data", async () => {
+  try {
+    await placesService.createPlace({
+      name: "Invalid Place",
+    });
+    assert.fail("Request should have failed");
+  } catch (err) {
+    assert.equal(err.response.status, 400);
+  }
+});
+
+test("delete a place that does not exist", async () => {
+  try {
+    await placesService.deletePlace("507f1f77bcf86cd799439011");
+    assert.fail("Request should have failed");
+  } catch (err) {
+    assert.equal(err.response.status, 404);
+  }
+});
 });

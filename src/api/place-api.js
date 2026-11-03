@@ -1,4 +1,5 @@
 import Boom from "@hapi/boom";
+import Joi from "joi";
 import { db } from "../models/db.js";
 import { PlaceSpec } from "../models/joi-schemas.js";
 
@@ -22,12 +23,15 @@ export const placeApi = {
 
   findOne: {
     auth: false,
+    validate: {
+      params: {
+        id: Joi.string().required(),
+      },
+    },
 
     handler: async function (request, h) {
       try {
-        const place = await db.placeStore.getPlaceById(
-          request.params.id
-        );
+        const place = await db.placeStore.getPlaceById(request.params.id);
 
         if (!place) {
           return Boom.notFound("No place with this ID");
@@ -45,54 +49,57 @@ export const placeApi = {
   },
 
   create: {
-  auth: false,
-  validate: {
-  payload: PlaceSpec,
-},
+    auth: false,
+    validate: {
+      payload: PlaceSpec,
+    },
 
-  handler: async function (request, h) {
-    try {
-      const place = request.payload;
+    handler: async function (request, h) {
+      try {
+        const place = request.payload;
 
-      const newPlace = await db.placeStore.addPlace(place);
+        const newPlace = await db.placeStore.addPlace(place);
 
-      if (newPlace) {
-        return h.response(newPlace).code(201);
+        if (newPlace) {
+          return h.response(newPlace).code(201);
+        }
+
+        return Boom.badImplementation("Error creating place");
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
       }
+    },
 
-      return Boom.badImplementation("Error creating place");
-    } catch (err) {
-      return Boom.serverUnavailable("Database Error");
-    }
+    tags: ["api"],
+    description: "Create a place",
+    notes: "Returns the newly created place",
   },
 
-  tags: ["api"],
-  description: "Create a place",
-  notes: "Returns the newly created place",
-},
+  deleteOne: {
+    auth: false,
+    validate: {
+      params: {
+        id: Joi.string().required(),
+      },
+    },
 
-deleteOne: {
-  auth: false,
+    handler: async function (request, h) {
+      try {
+        const place = await db.placeStore.getPlaceById(request.params.id);
 
-  handler: async function (request, h) {
-    try {
-      const place = await db.placeStore.getPlaceById(
-        request.params.id
-      );
+        if (!place) {
+          return Boom.notFound("No place with this ID");
+        }
 
-      if (!place) {
-        return Boom.notFound("No place with this ID");
+        await db.placeStore.deletePlaceById(request.params.id);
+
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
       }
+    },
 
-      await db.placeStore.deletePlaceById(request.params.id);
-
-      return h.response().code(204);
-    } catch (err) {
-      return Boom.serverUnavailable("Database Error");
-    }
+    tags: ["api"],
+    description: "Delete a place",
   },
-
-  tags: ["api"],
-  description: "Delete a place",
-},
 };

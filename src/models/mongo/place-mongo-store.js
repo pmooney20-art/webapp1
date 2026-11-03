@@ -13,18 +13,18 @@ function normalisePlace(place) {
 }
 
 export const placeMongoStore = {
-async getAllPlaces() {
-  const places = await Place.find().lean();
-  return places.map(normalisePlace);
-},
+  async getAllPlaces() {
+    const places = await Place.find().lean();
+    return places.map(normalisePlace);
+  },
 
-async getPlaceById(id) {
-  if (Mongoose.isValidObjectId(id)) {
-    const place = await Place.findById(id).lean();
-    return normalisePlace(place);
-  }
-  return null;
-},
+  async getPlaceById(id) {
+    if (Mongoose.isValidObjectId(id)) {
+      const place = await Place.findById(id).lean();
+      return normalisePlace(place);
+    }
+    return null;
+  },
   async addPlace(place) {
     const newPlace = new Place(place);
     const placeObj = await newPlace.save();

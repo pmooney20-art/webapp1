@@ -6,14 +6,17 @@ import Inert from "@hapi/inert";
 import Handlebars from "handlebars";
 import path from "path";
 import Joi from "joi";
-import { apiRoutes } from "./api-routes.js";
+import HapiSwagger from "hapi-swagger";
 import { fileURLToPath } from "url";
+import { apiRoutes } from "./api-routes.js";
 import { db } from "./models/db.js";
 import { webRoutes } from "./web-routes.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+
 dotenv.config();
 
 async function init() {
@@ -22,7 +25,19 @@ async function init() {
     host: "localhost",
   });
 
-  await server.register([Vision, Inert]);
+  await server.register([
+    Vision,
+    Inert,
+    {
+      plugin: HapiSwagger,
+      options: {
+        info: {
+          title: "Places of Interest API",
+          version: "1.0.0",
+        },
+      },
+    },
+  ]);
 
   await server.register(Cookie);
   server.auth.strategy("session", "cookie", {

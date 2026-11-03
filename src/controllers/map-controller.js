@@ -15,7 +15,7 @@ export const mapController = {
             place.latitude !== "" &&
             place.longitude !== "" &&
             place.latitude != null &&
-            place.longitude != null
+            place.longitude != null,
         )
         .map((place) => ({
           id: place.id,

@@ -39,6 +39,6 @@ export const userMongoStore = {
   },
 
   async deleteUserById(id) {
-  await User.deleteOne({ _id: id });
-},
+    await User.deleteOne({ _id: id });
+  },
 };

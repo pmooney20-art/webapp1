@@ -4,21 +4,37 @@ export const apiRoutes = [
   {
     method: "GET",
     path: "/api/places",
-    config: placeApi.find,
+    config: {
+      ...placeApi.find,
+      tags: ["api"],
+      description: "Get all places",
+    },
   },
   {
     method: "GET",
     path: "/api/places/{id}",
-    config: placeApi.findOne,
+    config: {
+      ...placeApi.findOne,
+      tags: ["api"],
+      description: "Get a place by ID",
+    },
   },
   {
-  method: "POST",
-  path: "/api/places",
-  config: placeApi.create,
-},
-{
-  method: "DELETE",
-  path: "/api/places/{id}",
-  config: placeApi.deleteOne,
-},
-]
+    method: "POST",
+    path: "/api/places",
+    config: {
+      ...placeApi.create,
+      tags: ["api"],
+      description: "Create a new place",
+    },
+  },
+  {
+    method: "DELETE",
+    path: "/api/places/{id}",
+    config: {
+      ...placeApi.deleteOne,
+      tags: ["api"],
+      description: "Delete a place",
+    },
+  },
+];

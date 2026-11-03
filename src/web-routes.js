@@ -57,8 +57,8 @@ export const webRoutes = [
     config: placesController.showPlace,
   },
   {
-  method: "GET",
-  path: "/map",
-  config: mapController.index,
-},
+    method: "GET",
+    path: "/map",
+    config: mapController.index,
+  },
 ];
