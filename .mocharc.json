@@ -1,0 +1,6 @@
+{
+  "ui": "tdd",
+  "extension": ["js"],
+  "recursive": true,
+  "timeout": 5000
+}

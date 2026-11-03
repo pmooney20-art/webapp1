@@ -37,4 +37,8 @@ export const userMongoStore = {
     const savedUser = await newUser.save();
     return this.getUserById(savedUser._id);
   },
+
+  async deleteUserById(id) {
+  await User.deleteOne({ _id: id });
+},
 };
