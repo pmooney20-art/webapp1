@@ -1,4 +1,3 @@
-
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { ProfileSpec } from "../models/joi-schemas.js";

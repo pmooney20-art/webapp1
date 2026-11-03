@@ -65,7 +65,7 @@ async function init() {
   server.validator(Joi);
   server.route(webRoutes);
   server.route(apiRoutes);
-  db.init("mongo");
+  await db.init("mongo");
   await server.start();
 
   console.log("Server running at %s", server.info.uri);
