@@ -1,5 +1,6 @@
 import { db } from "../models/db.js";
 import { PlaceSpec } from "../models/joi-schemas.js";
+import { categories } from "../models/categories.js";
 
 export const placesController = {
   index: {
@@ -21,11 +22,18 @@ export const placesController = {
 
   list: {
     async handler(request, h) {
-      const places = await db.placeStore.getAllPlaces();
+      const selectedCategory = request.query.category || "";
+      const allPlaces = await db.placeStore.getAllPlaces();
+
+      const places = selectedCategory
+        ? allPlaces.filter((place) => place.category === selectedCategory)
+        : allPlaces;
 
       return h.view("places", {
         title: "Explore Places",
         places,
+        categories,
+        selectedCategory,
       });
     },
   },
@@ -43,6 +51,7 @@ export const placesController = {
           .view("places", {
             title: "Explore Places",
             places,
+            categories,
             errors: validation.error.details,
             values: request.payload,
           })
@@ -66,6 +75,7 @@ export const placesController = {
       return h.view("edit-place", {
         title: "Edit Place",
         place,
+        categories,
       });
     },
   },
@@ -90,6 +100,7 @@ export const placesController = {
               id: place.id,
               ...request.payload,
             },
+            categories,
             errors: validation.error.details,
           })
           .code(400);

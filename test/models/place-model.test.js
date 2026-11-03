@@ -1,5 +1,6 @@
 import { assert } from "chai";
 import Mongoose from "mongoose";
+import { categories } from "../../src/models/categories.js";
 import { db } from "../../src/models/db.js";
 import { croaghPatrick } from "../fixtures.js";
 
@@ -46,4 +47,36 @@ suite("Place Model Tests", () => {
 
     assert.isNull(deletedPlace);
   });
+
+  test("create a place with a category", async () => {
+  const place = await db.placeStore.addPlace(croaghPatrick);
+
+  try {
+    assert.equal(place.category, "Mountain");
+  } finally {
+    await db.placeStore.deletePlaceById(place.id);
+  }
+});
+
+test("filter places by category", async () => {
+  const place = await db.placeStore.addPlace(croaghPatrick);
+
+  try {
+    const places = await db.placeStore.getAllPlaces();
+
+    const mountains = places.filter(
+      (item) => item.category === "Mountain"
+    );
+
+    assert.isTrue(
+      mountains.some((item) => item.id === place.id)
+    );
+  } finally {
+    await db.placeStore.deletePlaceById(place.id);
+  }
+});
+
+test("categories include Mountain", () => {
+  assert.include(categories, "Mountain");
+});
 });

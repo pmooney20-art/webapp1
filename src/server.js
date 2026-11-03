@@ -16,8 +16,10 @@ import { accountsController } from "./controllers/accounts-controller.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
 dotenv.config();
+Handlebars.registerHelper("eq", function (a, b) {
+  return a === b;
+});
 
 async function init() {
   const server = Hapi.server({

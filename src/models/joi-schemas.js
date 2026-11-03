@@ -1,9 +1,12 @@
 import Joi from "joi";
+import { categories } from "./categories.js";
 
 export const PlaceSpec = Joi.object({
   name: Joi.string().trim().min(3).max(100).required(),
 
-  category: Joi.string().trim().min(3).max(50).required(),
+  category: Joi.string()
+    .valid(...categories)
+    .required(),
 
   location: Joi.string().trim().min(3).max(100).required(),
   description: Joi.string().allow("").optional(),
