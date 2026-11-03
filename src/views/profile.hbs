@@ -1,0 +1,42 @@
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">My Profile</h1>
+
+    <div class="box">
+      <p><strong>Email:</strong> {{user.email}}</p>
+
+      <form action="/profile/update" method="POST">
+        <div class="field">
+          <label class="label">First Name</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              name="firstName"
+              value="{{user.firstName}}"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Last Name</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              name="lastName"
+              value="{{user.lastName}}"
+              required
+            />
+          </div>
+        </div>
+
+        <button class="button is-link" type="submit">
+          Save Changes
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

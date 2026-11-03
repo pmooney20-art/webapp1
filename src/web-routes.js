@@ -1,6 +1,7 @@
 import { placesController } from "./controllers/places-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { mapController } from "./controllers/map-controller.js";
+import { profileController } from "./controllers/profile-controller.js";
 
 export const webRoutes = [
   {
@@ -60,5 +61,16 @@ export const webRoutes = [
     method: "GET",
     path: "/map",
     config: mapController.index,
+  },
+
+  {
+    method: "GET",
+    path: "/profile",
+    config: profileController.index,
+  },
+  {
+    method: "POST",
+    path: "/profile/update",
+    config: profileController.update,
   },
 ];

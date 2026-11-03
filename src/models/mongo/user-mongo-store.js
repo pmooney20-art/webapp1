@@ -41,4 +41,13 @@ export const userMongoStore = {
   async deleteUserById(id) {
     await User.deleteOne({ _id: id });
   },
+
+  async updateUser(id, updatedUser) {
+    const user = await User.findByIdAndUpdate(id, updatedUser, {
+      new: true,
+      runValidators: true,
+    }).lean();
+
+    return user;
+  },
 };

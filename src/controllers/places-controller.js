@@ -114,11 +114,13 @@ export const placesController = {
 
   deletePlace: {
     async handler(request, h) {
-      const deleted = await db.placeStore.deletePlace(request.params.id);
+      const place = await db.placeStore.getPlaceById(request.params.id);
 
-      if (!deleted) {
+      if (!place) {
         return h.response("Place not found").code(404);
       }
+
+      await db.placeStore.deletePlaceById(request.params.id);
 
       return h.redirect("/places");
     },

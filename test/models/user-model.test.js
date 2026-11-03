@@ -68,4 +68,26 @@ suite("User Model Tests", () => {
 
     assert.isNull(deletedUser);
   });
+
+  test("update a user", async () => {
+  const user = await db.userStore.addUser(testUser);
+
+  try {
+    const updatedUser = await db.userStore.updateUser(
+      user._id,
+      {
+        firstName: "Updated",
+        lastName: "User",
+      }
+    );
+
+    assert.equal(updatedUser.firstName, "Updated");
+
+    const savedUser = await db.userStore.getUserById(user._id);
+
+    assert.equal(savedUser.firstName, "Updated");
+  } finally {
+    await db.userStore.deleteUserById(user._id);
+  }
+});
 });

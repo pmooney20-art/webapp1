@@ -24,3 +24,8 @@ export const UserSpec = UserCredentialsSpec.keys({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
 }).label("UserDetails");
+
+export const ProfileSpec = Joi.object({
+  firstName: Joi.string().trim().min(2).max(50).required(),
+  lastName: Joi.string().trim().min(2).max(50).required(),
+});

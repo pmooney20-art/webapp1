@@ -41,18 +41,26 @@ export const placeMongoStore = {
     await Place.deleteMany({});
   },
 
-  async updatePlace(updatedPlace) {
-    const place = await Place.findById(updatedPlace._id);
-
-    if (place) {
-      place.name = updatedPlace.name;
-      place.category = updatedPlace.category;
-      place.location = updatedPlace.location;
-      place.description = updatedPlace.description;
-      place.latitude = updatedPlace.latitude;
-      place.longitude = updatedPlace.longitude;
-
-      await place.save();
+  async updatePlace(id, updatedPlace) {
+    if (!Mongoose.isValidObjectId(id)) {
+      return null;
     }
+
+    const place = await Place.findById(id);
+
+    if (!place) {
+      return null;
+    }
+
+    place.name = updatedPlace.name;
+    place.category = updatedPlace.category;
+    place.location = updatedPlace.location;
+    place.description = updatedPlace.description;
+    place.latitude = updatedPlace.latitude;
+    place.longitude = updatedPlace.longitude;
+
+    await place.save();
+
+    return this.getPlaceById(id);
   },
 };

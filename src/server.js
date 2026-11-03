@@ -17,9 +17,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
-Handlebars.registerHelper("eq", function (a, b) {
-  return a === b;
-});
+Handlebars.registerHelper("eq", (a, b) => a === b);
 
 async function init() {
   const server = Hapi.server({
