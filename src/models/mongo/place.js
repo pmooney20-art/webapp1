@@ -9,6 +9,8 @@ const placeSchema = new Schema({
   description: String,
   latitude: Number,
   longitude: Number,
+  imageUrl: String,
+imagePublicId: String,
 });
 
 export const Place = Mongoose.model("Place", placeSchema);

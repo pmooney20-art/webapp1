@@ -1,25 +1,137 @@
+
 <section class="section">
   <div class="container">
+
     <h1 class="title">{{place.name}}</h1>
 
-    <div class="box">
-      <p><strong>Category:</strong> {{place.category}}</p>
-      <p><strong>Location:</strong> {{place.location}}</p>
+    <div class="columns">
+      <div class="column is-two-thirds">
 
-      <hr />
+        <div class="card">
 
-      <h2 class="subtitle">Description</h2>
-      <p>{{place.description}}</p>
+          {{#if place.imageUrl}}
+            <div class="card-image">
+              <figure class="image is-16by9">
+                <img
+                  src="{{place.imageUrl}}"
+                  alt="{{place.name}}"
+                  style="object-fit: cover;"
+                />
+              </figure>
+            </div>
+          {{else}}
+            <div class="has-background-light has-text-centered p-6">
+              <p class="has-text-grey">
+                No photograph uploaded
+              </p>
+            </div>
+          {{/if}}
 
-      <hr />
+          <div class="card-content">
 
-      <h2 class="subtitle">Coordinates</h2>
-      <p>Latitude: {{place.latitude}}</p>
-      <p>Longitude: {{place.longitude}}</p>
+            <p class="title is-4">{{place.name}}</p>
+
+            <p class="subtitle is-6">
+              {{place.category}}
+            </p>
+
+            <div class="content">
+              <p>
+                <strong>Location:</strong>
+                {{place.location}}
+              </p>
+
+              <p>
+                <strong>Description:</strong>
+                {{place.description}}
+              </p>
+
+              <p>
+                <strong>Latitude:</strong>
+                {{place.latitude}}
+              </p>
+
+              <p>
+                <strong>Longitude:</strong>
+                {{place.longitude}}
+              </p>
+            </div>
+
+          </div>
+
+          <footer class="card-footer">
+            <a
+              href="/places/{{place.id}}/edit"
+              class="card-footer-item"
+            >
+              Edit Place
+            </a>
+
+            <a
+              href="/places"
+              class="card-footer-item"
+            >
+              Back to Places
+            </a>
+          </footer>
+
+        </div>
+
+      </div>
+
+      <div class="column">
+
+        <div class="box">
+
+          <h2 class="title is-5">
+            Upload Photograph
+          </h2>
+
+          <form
+            action="/places/{{place.id}}/image"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+
+            <div class="field">
+              <label class="label">
+                Select Image
+              </label>
+
+              <div class="control">
+                <input
+                  class="input"
+                  type="file"
+                  name="image"
+                  accept="image/jpeg,image/png,image/webp"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <button
+                class="button is-link is-fullwidth"
+                type="submit"
+              >
+                Upload Image
+              </button>
+            </div>
+
+          </form>
+
+          {{#if place.imageUrl}}
+            <p class="help mt-3">
+              Uploading another photograph will
+              replace the current image displayed
+              for this place.
+            </p>
+          {{/if}}
+
+        </div>
+
+      </div>
     </div>
 
-    <a class="button is-link is-light" href="/places">
-      Back to Places
-    </a>
   </div>
 </section>

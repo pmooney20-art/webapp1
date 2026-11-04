@@ -34,29 +34,70 @@
   <div class="column is-two-thirds">
     <h2 class="subtitle">Existing Places</h2>
 
-{{#each places}}
-  <div class="box">
-    <h3 class="title is-5">{{name}}</h3>
 
-    <p><strong>Category:</strong> {{category}}</p>
-    <p><strong>Location:</strong> {{location}}</p>
+<div class="columns is-multiline">
+  {{#each places}}
+    <div class="column is-half">
+      <div class="card">
 
-    <div class="buttons mt-4">
-      <a class="button is-info is-small" href="/places/{{id}}/edit">
-        Edit
-      </a>
-      <a class="button is-info is-light" href="/places/{{id}}">
-  View Details
-</a>
+        <div class="card-image">
+          {{#if imageUrl}}
+            <figure class="image is-16by9">
+              <img
+                src="{{imageUrl}}"
+                alt="{{name}}"
+                style="object-fit: cover;"
+              />
+            </figure>
+          {{else}}
+            <div class="has-background-light has-text-centered p-6">
+              <p class="has-text-grey">No image uploaded</p>
+            </div>
+          {{/if}}
+        </div>
 
-      <form action="/places/{{id}}/delete" method="POST">
-        <button class="button is-danger is-small" type="submit">
-          Delete
-        </button>
-      </form>
+        <div class="card-content">
+          <p class="title is-5">{{name}}</p>
+          <p class="subtitle is-6">{{category}}</p>
+
+          <p><strong>Location:</strong> {{location}}</p>
+          <p>{{description}}</p>
+        </div>
+
+        <footer class="card-footer">
+          <a
+            href="/places/{{id}}"
+            class="card-footer-item"
+          >
+            View
+          </a>
+
+          <a
+            href="/places/{{id}}/edit"
+            class="card-footer-item"
+          >
+            Edit
+          </a>
+        </footer>
+
+        <form
+          action="/places/{{id}}/delete"
+          method="POST"
+          class="p-3"
+        >
+          <button
+            type="submit"
+            class="button is-danger is-light is-fullwidth"
+          >
+            Delete
+          </button>
+        </form>
+
+      </div>
     </div>
-  </div>
-{{/each}}
+  {{/each}}
+</div>
+
   </div>
 
   <div class="column">

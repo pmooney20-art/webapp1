@@ -2,6 +2,7 @@ import { placesController } from "./controllers/places-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { mapController } from "./controllers/map-controller.js";
 import { profileController } from "./controllers/profile-controller.js";
+import { imageController } from "./controllers/image-controller.js";
 
 export const webRoutes = [
   {
@@ -73,4 +74,10 @@ export const webRoutes = [
     path: "/profile/update",
     config: profileController.update,
   },
+
+  {
+  method: "POST",
+  path: "/places/{id}/image",
+  options: imageController.upload,
+},
 ];
