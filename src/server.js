@@ -6,6 +6,7 @@ import Inert from "@hapi/inert";
 import Handlebars from "handlebars";
 import path from "path";
 import Joi from "joi";
+import Jwt from "@hapi/jwt";
 import HapiSwagger from "hapi-swagger";
 import { fileURLToPath } from "url";
 import { apiRoutes } from "./api-routes.js";
@@ -48,6 +49,33 @@ async function init() {
     },
     redirectTo: "/",
     validate: accountsController.validate,
+  });
+
+  await server.register(Jwt);
+
+  server.auth.strategy("jwt", "jwt", {
+    keys: process.env.JWT_SECRET,
+    verify: {
+      aud: false,
+      iss: false,
+      sub: false,
+      nbf: true,
+      exp: true,
+      maxAgeSec: 3600,
+    },
+    validate: async (artifacts, request, h) => {
+      const userId = artifacts.decoded.payload.id;
+      const user = await db.userStore.getUserById(userId);
+
+      if (!user) {
+        return { isValid: false };
+      }
+
+      return {
+        isValid: true,
+        credentials: user,
+      };
+    },
   });
 
   server.auth.default("session");

@@ -1,4 +1,5 @@
 import { placeApi } from "./api/place-api.js";
+import { userApi } from "./api/user-api.js";
 
 export const apiRoutes = [
   {
@@ -35,6 +36,16 @@ export const apiRoutes = [
       ...placeApi.deleteOne,
       tags: ["api"],
       description: "Delete a place",
+    },
+  },
+
+  {
+    method: "POST",
+    path: "/api/users/authenticate",
+    config: {
+      ...userApi.authenticate,
+      tags: ["api"],
+      description: "Authenticate user and return JWT",
     },
   },
 ];

@@ -5,7 +5,7 @@ import { PlaceSpec } from "../models/joi-schemas.js";
 
 export const placeApi = {
   find: {
-    auth: false,
+    auth: "jwt",
 
     handler: async function (request, h) {
       try {
@@ -22,7 +22,7 @@ export const placeApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: "jwt",
     validate: {
       params: {
         id: Joi.string().required(),
@@ -49,7 +49,7 @@ export const placeApi = {
   },
 
   create: {
-    auth: false,
+    auth: "jwt",
     validate: {
       payload: PlaceSpec,
     },
@@ -76,7 +76,7 @@ export const placeApi = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: "jwt",
     validate: {
       params: {
         id: Joi.string().required(),
