@@ -65,17 +65,17 @@ export const placeMongoStore = {
   },
 
   async updatePlaceImage(id, imageDetails) {
-  const place = await Place.findById(id);
+    const place = await Place.findById(id);
 
-  if (!place) {
-    return null;
-  }
+    if (!place) {
+      return null;
+    }
 
-  place.imageUrl = imageDetails.imageUrl;
-  place.imagePublicId = imageDetails.imagePublicId;
+    place.imageUrl = imageDetails.imageUrl;
+    place.imagePublicId = imageDetails.imagePublicId;
 
-  await place.save();
+    await place.save();
 
-  return this.getPlaceById(id);
-},
+    return this.getPlaceById(id);
+  },
 };

@@ -1,4 +1,3 @@
-
 import Boom from "@hapi/boom";
 import { fileTypeFromBuffer } from "file-type";
 import { db } from "../models/db.js";
@@ -26,7 +25,12 @@ export const imageController = {
         return Boom.badRequest("Please select an image");
       }
 
-      const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+      const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/jpg",
+      ];
 
       const detectedType = await fileTypeFromBuffer(image);
 

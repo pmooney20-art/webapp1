@@ -1,0 +1,116 @@
+
+<section class="section">
+  <div class="container">
+
+    <h1 class="title">Admin Dashboard</h1>
+    <p class="subtitle">
+      Places of Interest Administration
+    </p>
+
+    <div class="columns">
+      <div class="column">
+        <div class="box has-text-centered">
+          <p class="heading">Registered Users</p>
+          <p class="title">{{userCount}}</p>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="box has-text-centered">
+          <p class="heading">Places of Interest</p>
+          <p class="title">{{placeCount}}</p>
+        </div>
+      </div>
+    </div>
+
+
+<div class="box">
+  <h2 class="title is-4">Registered Users</h2>
+
+  <table class="table is-fullwidth is-striped">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each users}}
+        <tr>
+          <td>{{firstName}}</td>
+          <td>{{lastName}}</td>
+          <td>{{email}}</td>
+
+          <td>
+            {{#if role}}
+              {{role}}
+            {{else}}
+              user
+            {{/if}}
+          </td>
+
+          <td>
+            {{#if (eq role "admin")}}
+              <span class="tag is-info">Protected</span>
+            {{else}}
+              <form
+                action="/admin/users/{{id}}/delete"
+                method="POST"
+                onsubmit="return confirm('Permanently delete this user?');"
+              >
+                <button
+                  type="submit"
+                  class="button is-danger is-small"
+                >
+                  Remove User
+                </button>
+              </form>
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+
+    <div class="box">
+      <h2 class="title is-4">Places of Interest</h2>
+
+      <table class="table is-fullwidth is-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#each places}}
+            <tr>
+              <td>{{name}}</td>
+              <td>{{category}}</td>
+              <td>{{location}}</td>
+              <td>
+                <a href="/places/{{id}}">
+                  View
+                </a>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    <a href="/dashboard" class="button is-link is-light">
+      Back to Dashboard
+    </a>
+
+  </div>
+</section>

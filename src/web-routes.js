@@ -3,6 +3,7 @@ import { accountsController } from "./controllers/accounts-controller.js";
 import { mapController } from "./controllers/map-controller.js";
 import { profileController } from "./controllers/profile-controller.js";
 import { imageController } from "./controllers/image-controller.js";
+import { adminController } from "./controllers/admin-controller.js";
 
 export const webRoutes = [
   {
@@ -76,8 +77,20 @@ export const webRoutes = [
   },
 
   {
-  method: "POST",
-  path: "/places/{id}/image",
-  options: imageController.upload,
-},
+    method: "POST",
+    path: "/places/{id}/image",
+    options: imageController.upload,
+  },
+
+  {
+    method: "GET",
+    path: "/admin",
+    config: adminController.index,
+  },
+
+  {
+    method: "POST",
+    path: "/admin/users/{id}/delete",
+    config: adminController.deleteUser,
+  },
 ];
